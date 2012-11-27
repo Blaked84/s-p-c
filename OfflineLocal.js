@@ -5,7 +5,7 @@ function onload(){
  
 function getData(){
 	if(window.localStorage){
-		for(var i=0; i<window.localStorage.length;i++){
+		for(var i=0; i<window.localStorage.length+1;i++){
 			var key = window.localStorage.key(i);
 			var value = window.localStorage.getItem(key);
                                     displayData(value);
@@ -14,7 +14,7 @@ function getData(){
 }
  
 function saveData(){
-	for(var i=1; i<4;i++)
+	for(var i=1; i<nombre_equipes+1;i++)
 		{
 		
 		var vare = 'e'+i;
@@ -37,7 +37,7 @@ function saveData(){
 }
  
 function displayData(data){
-	for(var i=1; i<4;i++)
+	for(var i=1; i<window.localStorage.length+1;i++)
 		{
 		
 		var vare = 'e'+i;

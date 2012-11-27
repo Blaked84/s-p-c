@@ -8,7 +8,7 @@
 
 2012
 
-v:alpha1
+v:beta1
  -->
 
 <html manifest="cache.manifest">
@@ -18,6 +18,7 @@ v:alpha1
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="style.css" media="screen" /></head>
 	<script src="OfflineLocal.js"></script>
+	<script src="config.js"></script>
 
 <body onload=" onload()" onKeyPress="boutona(event)" onclic="saveData()">
 
@@ -27,31 +28,18 @@ v:alpha1
 		<tr>
 			<td><a class="add btn" href="javascript:cnt[1]=p1(1,1);"> + </a></td>
 			<td><a class="light btn"href="javascript:cnt[1]=p1(-1,1);"> - </a></td>
-			<td>Equipe A</td>
+			<td>Equipe a</td>
 			<td> <input type="text" id="i1" value="1"> </td>
 			<td><span id="e1" class="re">0</span></td>
 			<td><span id="n1" class="rn">0</span></td>
 		</tr>
-		<tr>
-			<td><a class="add btn" href="javascript:cnt[2]=p1(1,2);"> + </a></td>
-			<td><a class="light btn"href="javascript:cnt[2]=p1(-1,2);"> - </a></td>
-			<td>Equipe Z</td>
-			<td> <input type="text" id="i2" value="1"> </td>
-			<td><span id="e2" class="re">0</span></td>
-			<td><span id="n2" class="rn">0</span></td>
-		</tr>
-		<tr>
-			<td><a class="add btn" href="javascript:cnt[3]=p1(1,3);"> + </a></td>
-			<td><a class="light btn"href="javascript:cnt[3]=p1(-1,3);"> - </a></td>
-			<td>Equipe E</td>
-			<td> <input type="text" id="i3" value="1"> </td>
-			<td><span id="e3" class="re">0</span></td>
-			<td><span id="n3" class="rn">0</span></td>
-		</tr>
+		
 	</table>
 
 	<a class="edit btn" onclick="reset();"> Reset </a>
 </div>
+<br />
+<span><center>code & design by Blaked 84me211</center></span>
 
 
 
@@ -65,13 +53,31 @@ v:alpha1
 	lettres[2]='z';
 	lettres[3]='e';
 	lettres[4]='r';
+	lettres[5]='t';
+	lettres[6]='y';
+	lettres[7]='u';
+	lettres[8]='i';
+	lettres[9]='o';
+	lettres[10]='p';
+	lettres[11]='q';
+	lettres[12]='s';
+	lettres[13]='d';
+	lettres[14]='f';
+	lettres[15]='g';
+	lettres[16]='h';
+	lettres[17]='j';
+	lettres[18]='k';
 
 	var cnt = {};
-	for (var i = 1; i <10; i++) {
+	for (var i = 1; i <nombre_equipes; i++) {
 		cnt[i]=0;	
 	}
-	new_team(4);
-
+	init_ui();
+	function init_ui(){
+		for (var i = 2; i < nombre_equipes; i++) {
+			new_team(i);
+		};
+	}
 	// génération de l'insterface
 	function new_team(id){ 
 		// tr
@@ -83,7 +89,7 @@ v:alpha1
 		//bouton +
 		var new_bp = document.createElement('a');
 		new_bp.className="add btn";
-		new_bp.href= '"javascript:cnt['+ id + ']p1(1,'+ id +');"';
+		new_bp.href= 'javascript:cnt['+ id + ']=p1(1,'+ id +');';
 		var newLinkTextp = document.createTextNode("+");
 		new_bp.appendChild(newLinkTextp);
 		document.getElementById(tr.id ).lastChild.appendChild(new_bp) ;
@@ -92,7 +98,7 @@ v:alpha1
 		// bouton -
 		var new_bm = document.createElement('a');
 		new_bm.className="light btn";
-		new_bm.href= '"javascript:cnt['+ id + ']p1(-1,'+ id +');"';
+		new_bm.href= 'javascript:cnt['+ id + ']=p1(-1,'+ id +');';
 		var newLinkTextm = document.createTextNode("-");
 		new_bm.appendChild(newLinkTextm);
 		document.getElementById(tr.id ).lastChild.appendChild(new_bm) ;
