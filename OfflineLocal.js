@@ -21,8 +21,9 @@ function saveData(){
 		var varee ={};
 
 		
-		varee[i] = document.getElementById(vare).innerHTML;
-		window.localStorage.setItem(i, varee[i]);
+		//varee[i] = document.getElementById(vare).innerHTML;
+		
+		window.localStorage.setItem(i,cnt[i]);
 
 		}
 
@@ -44,18 +45,19 @@ function displayData(data){
 
 		
 
-		varee[i]=window.localStorage.getItem(i);
-		document.getElementById(vare).innerHTML =varee[i];
-		if (varee[i] != null){vare = parseInt(varee[i]);}
+		cnt[i]=window.localStorage.getItem(i);
+		document.getElementById(vare).innerHTML =cnt[i];
+		if (cnt[i] != null){vare = parseInt(cnt[i]);}
+		else{cnt[i]=0;}
 		}
 
-	ee2=window.localStorage.getItem(2);
-	document.getElementById("e2").innerHTML =ee2;
-	if (ee2 != null){e2 = parseInt(ee2);}
+	//ee2=window.localStorage.getItem(2);
+	//document.getElementById("e2").innerHTML =ee2;
+	//if (ee2 != null){e2 = parseInt(ee2);}
 
-	ee3=window.localStorage.getItem(3);
-	document.getElementById("e3").innerHTML =ee3;
-	if (ee3 != null){e3 = parseInt(ee3);}
+	//ee3=window.localStorage.getItem(3);
+	//document.getElementById("e3").innerHTML =ee3;
+	//if (ee3 != null){e3 = parseInt(ee3);}
 	
 }
 

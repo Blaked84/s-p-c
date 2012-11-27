@@ -25,24 +25,24 @@ v:alpha1
 <div class="cnt">
 	<table>
 		<tr>
-			<td><a class="add btn" href="javascript:e1=p1(1,e1,'e1','i1','n1');"> + </a></td>
-			<td><a class="light btn"href="javascript:e1=p1(-1,e1,'e1','i1','n1');"> - </a></td>
+			<td><a class="add btn" href="javascript:cnt[1]=p1(1,1);"> + </a></td>
+			<td><a class="light btn"href="javascript:cnt[1]=p1(-1,1);"> - </a></td>
 			<td>Equipe A</td>
 			<td> <input type="text" id="i1" value="1"> </td>
 			<td><span id="e1" class="re">0</span></td>
 			<td><span id="n1" class="rn">0</span></td>
 		</tr>
 		<tr>
-			<td><a class="add btn" href="javascript:e2=p1(1,e2,'e2','i2','n2');"> + </a></td>
-			<td><a class="light btn"href="javascript:e2=p1(-1,e2,'e2','i2','n2');"> - </a></td>
+			<td><a class="add btn" href="javascript:cnt[2]=p1(1,2);"> + </a></td>
+			<td><a class="light btn"href="javascript:cnt[2]=p1(-1,2);"> - </a></td>
 			<td>Equipe Z</td>
 			<td> <input type="text" id="i2" value="1"> </td>
 			<td><span id="e2" class="re">0</span></td>
 			<td><span id="n2" class="rn">0</span></td>
 		</tr>
 		<tr>
-			<td><a class="add btn" href="javascript:e2=p1(1,e3,'e3','i3','n3');"> + </a></td>
-			<td><a class="light btn"href="javascript:e2=p1(-1,e3,'e3','i3','n3');"> - </a></td>
+			<td><a class="add btn" href="javascript:cnt[3]=p1(1,3);"> + </a></td>
+			<td><a class="light btn"href="javascript:cnt[3]=p1(-1,3);"> - </a></td>
 			<td>Equipe E</td>
 			<td> <input type="text" id="i3" value="1"> </td>
 			<td><span id="e3" class="re">0</span></td>
@@ -58,6 +58,10 @@ v:alpha1
 <script type="text/javascript">
 	//var nj = prompt("Nombre de joueurs");
 
+	var cnt = {};
+	for (var i = 1; i <10; i++) {
+		cnt[i]=0;	
+	}
 	var e1 =0;
 	var e2 =0;
 	var e3 =0;
@@ -69,24 +73,26 @@ v:alpha1
 			e1 = result	;
 
 	}
-	function p1(a,b,c,f,g){
-		var a = a;
-		var b =b+a;
-		var d = c;
-		//var g = f;
+	function p1(increment,i_){
+		//var a = increment;
+		cnt[i_] =parseInt( cnt[i_])+increment;
+		var c ='e'+i_;
+		var f = 'i' + i_;
+		var g = 'n'+ i_;
+
 		var n1=document.getElementById(f).value;
-		var q_per_p = b /  n1;
-		document.getElementById(d).innerHTML=b;
+		var q_per_p = cnt[i_] /  n1;
+		document.getElementById(c).innerHTML=cnt[i_];
 		document.getElementById(g).innerHTML=q_per_p;
 		
 		
-		return b;
+		return cnt[i_];
 
 	}
 
 
 	function reset(){
-	for(var i=1; i<window.localStorage.length;i++)
+	for(var i=1; i<window.localStorage.length+1;i++)
 		{
 		window.localStorage.setItem(i, 0);
 		var vare = 'e'+i;
@@ -125,11 +131,11 @@ v:alpha1
 <script>function boutona(e) {
 var touche = (window.Event) ? e.which : e.keyCode;
 if (String.fromCharCode(touche)=="a")
-	{javascript:e1=p1(1,e1,'e1','i1','n1');}
+	{javascript:cnt[1]=p1(1,1);}
 if (String.fromCharCode(touche)=="z")
-	{javascript:e2=p1(1,e2,'e2','i2','n2');}
+	{javascript:cnt[2]=p1(1,2);}
 if (String.fromCharCode(touche)=="e")
-	{javascript:e3=p1(1,e3,'e3','i3','n3');}
+	{javascript:cnt[3]=p1(1,3);}
 saveData();
 }
 document.boutona;
