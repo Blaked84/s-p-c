@@ -23,7 +23,7 @@ v:alpha1
 
 
 <div class="cnt">
-	<table>
+	<table id="liste">
 		<tr>
 			<td><a class="add btn" href="javascript:cnt[1]=p1(1,1);"> + </a></td>
 			<td><a class="light btn"href="javascript:cnt[1]=p1(-1,1);"> - </a></td>
@@ -57,13 +57,79 @@ v:alpha1
 
 <script type="text/javascript">
 	//var nj = prompt("Nombre de joueurs");
+	//tableau des lettres
+
+	var lettres= {};
+
+	lettres[1]='a';
+	lettres[2]='z';
+	lettres[3]='e';
+	lettres[4]='r';
 
 	var cnt = {};
 	for (var i = 1; i <10; i++) {
 		cnt[i]=0;	
 	}
-	
+	new_team(4);
 
+	// génération de l'insterface
+	function new_team(id){ 
+		// tr
+		var tr = document.createElement('tr');
+		tr.id = 'tr'+id;
+		document.getElementById('liste').appendChild(tr);
+		// td
+		new_td();
+		//bouton +
+		var new_bp = document.createElement('a');
+		new_bp.className="add btn";
+		new_bp.href= '"javascript:cnt['+ id + ']p1(1,'+ id +');"';
+		var newLinkTextp = document.createTextNode("+");
+		new_bp.appendChild(newLinkTextp);
+		document.getElementById(tr.id ).lastChild.appendChild(new_bp) ;
+		//td
+		new_td();
+		// bouton -
+		var new_bm = document.createElement('a');
+		new_bm.className="light btn";
+		new_bm.href= '"javascript:cnt['+ id + ']p1(-1,'+ id +');"';
+		var newLinkTextm = document.createTextNode("-");
+		new_bm.appendChild(newLinkTextm);
+		document.getElementById(tr.id ).lastChild.appendChild(new_bm) ;
+		//td
+		new_td();
+		// nom equipe
+		var nom_equipe = document.createTextNode('Equipe ' + lettres[id]);
+		document.getElementById(tr.id ).lastChild.appendChild(nom_equipe) ;
+		//td
+		new_td();
+		// input
+		var new_in = document.createElement('input');
+		new_in.type="text";
+		new_in.id='i'+id;
+		new_in.value="1";
+		document.getElementById(tr.id ).lastChild.appendChild(new_in) ;
+		//td
+		new_td();
+		new_span('e'+id,"re");
+		//td
+		new_td();
+		new_span('n'+id,"rn");
+
+	}
+	function new_td(){
+		var td = document.createElement('td');
+		document.getElementById('liste').lastChild.appendChild(td);
+	}
+	function new_span(id,cla){
+		var span = document.createElement('span');
+		var zero = document.createTextNode('0');
+
+		span.id=id;
+		span.className=cla;
+		span.appendChild(zero);
+		document.getElementById('liste').lastChild.lastChild.appendChild(span);
+	}
 	
 	function p1(increment,i_){
 		//var a = increment;
@@ -121,12 +187,7 @@ v:alpha1
 </script>
 
 <script>
-var lettres= {};
 
-lettres[1]='a';
-lettres[2]='z';
-lettres[3]='e';
-lettres[4]='r';
 
 
 function boutona(e){
