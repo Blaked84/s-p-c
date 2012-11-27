@@ -1,0 +1,139 @@
+<!-- 
+ ____  _       _            _    ___  _  _   
+|  _ \| |     | |          | |  / _ \| || |  
+| |_) | | __ _| | _____  __| | | (_) | || |_ 
+|  _ <| |/ _` | |/ / _ \/ _` |  > _ <|__   _|
+| |_) | | (_| |   <  __/ (_| | | (_) |  | |  
+|____/|_|\__,_|_|\_\___|\__,_|  \___/   |_| 
+
+2012
+
+v:alpha1
+ -->
+
+<html manifest="cache.manifest">
+
+
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" /></head>
+	<script src="OfflineLocal.js"></script>
+
+<body onload=" onload()" onKeyPress="boutona(event)" onclic="saveData()">
+
+
+<div class="cnt">
+	<table>
+		<tr>
+			<td><a class="add btn" href="javascript:e1=p1(1,e1,'e1','i1','n1');"> + </a></td>
+			<td><a class="light btn"href="javascript:e1=p1(-1,e1,'e1','i1','n1');"> - </a></td>
+			<td>Equipe A</td>
+			<td> <input type="text" id="i1" value="1"> </td>
+			<td><span id="e1" class="re">0</span></td>
+			<td><span id="n1" class="rn">0</span></td>
+		</tr>
+		<tr>
+			<td><a class="add btn" href="javascript:e2=p1(1,e2,'e2','i2','n2');"> + </a></td>
+			<td><a class="light btn"href="javascript:e2=p1(-1,e2,'e2','i2','n2');"> - </a></td>
+			<td>Equipe Z</td>
+			<td> <input type="text" id="i2" value="1"> </td>
+			<td><span id="e2" class="re">0</span></td>
+			<td><span id="n2" class="rn">0</span></td>
+		</tr>
+		<tr>
+			<td><a class="add btn" href="javascript:e2=p1(1,e3,'e3','i3','n3');"> + </a></td>
+			<td><a class="light btn"href="javascript:e2=p1(-1,e3,'e3','i3','n3');"> - </a></td>
+			<td>Equipe E</td>
+			<td> <input type="text" id="i3" value="1"> </td>
+			<td><span id="e3" class="re">0</span></td>
+			<td><span id="n3" class="rn">0</span></td>
+		</tr>
+	</table>
+
+	<a class="edit btn" onclick="reset();"> Reset </a>
+</div>
+
+
+
+<script type="text/javascript">
+	//var nj = prompt("Nombre de joueurs");
+
+	var e1 =0;
+	var e2 =0;
+	var e3 =0;
+
+	function addp(equip){
+		result =equip +1;
+		alert(result);
+		if (equip=e1)
+			e1 = result	;
+
+	}
+	function p1(a,b,c,f,g){
+		var a = a;
+		var b =b+a;
+		var d = c;
+		//var g = f;
+		var n1=document.getElementById(f).value;
+		var q_per_p = b /  n1;
+		document.getElementById(d).innerHTML=b;
+		document.getElementById(g).innerHTML=q_per_p;
+		
+		
+		return b;
+
+	}
+
+
+	function reset(){
+	for(var i=1; i<window.localStorage.length;i++)
+		{
+		window.localStorage.setItem(i, 0);
+		var vare = 'e'+i;
+		document.getElementById(vare).innerHTML ="0";
+		
+
+		}
+	var e1 =0;
+	var e2 =0;
+	var e3 =0;
+	
+	alert('clique sur ok et puis F5');
+	
+	//document.getElementById("e2").innerHTML ="0";
+	//document.getElementById("e3").innerHTML ="0";
+	}
+
+
+
+	// gestion clavier
+
+
+	function r2(equip){
+		equip +=1;
+		idelem = '"'+equip+"'";
+		document.getElementById("e2").innerHTML=equip;
+		//alert(a);
+		//alert('coucou');
+		a="equip";
+		
+		return equip;
+
+	}
+</script>
+
+<script>function boutona(e) {
+var touche = (window.Event) ? e.which : e.keyCode;
+if (String.fromCharCode(touche)=="a")
+	{javascript:e1=p1(1,e1,'e1','i1','n1');}
+if (String.fromCharCode(touche)=="z")
+	{javascript:e2=p1(1,e2,'e2','i2','n2');}
+if (String.fromCharCode(touche)=="e")
+	{javascript:e3=p1(1,e3,'e3','i3','n3');}
+saveData();
+}
+document.boutona;
+</script>
+</body>
+</html>
+
