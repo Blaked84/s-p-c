@@ -26,8 +26,8 @@ v:beta1
 <div class="cnt">
 	<table id="liste">
 		<tr>
-			<td><a class="add btn" href="javascript:cnt[1]=p1(1,1);"> + </a></td>
-			<td><a class="light btn"href="javascript:cnt[1]=p1(-1,1);"> - </a></td>
+			<td><a class="add btn" onclick='cnt[1]=p1(1,1);' href='#'> + </a></td>
+			<td><a class="light btn" onclick='cnt[1]=p1(-1,1)' href='#;'> - </a></td>
 			<td>Equipe a</td>
 			<td> <input type="text" id="i1" value="1"> </td>
 			<td><span id="e1" class="re">0</span></td>
@@ -89,7 +89,8 @@ v:beta1
 		//bouton +
 		var new_bp = document.createElement('a');
 		new_bp.className="add btn";
-		new_bp.href= 'javascript:cnt['+ id + ']=p1(1,'+ id +');';
+		new_bp.setAttribute('onclick','cnt['+ id + ']=p1(1,'+ id +')');
+		new_bp.href="#";
 		var newLinkTextp = document.createTextNode("+");
 		new_bp.appendChild(newLinkTextp);
 		document.getElementById(tr.id ).lastChild.appendChild(new_bp) ;
@@ -98,7 +99,8 @@ v:beta1
 		// bouton -
 		var new_bm = document.createElement('a');
 		new_bm.className="light btn";
-		new_bm.href= 'javascript:cnt['+ id + ']=p1(-1,'+ id +');';
+		new_bm.setAttribute('onclick','cnt['+ id + ']=p1(-1,'+ id +')');
+		new_bm.href="#";
 		var newLinkTextm = document.createTextNode("-");
 		new_bm.appendChild(newLinkTextm);
 		document.getElementById(tr.id ).lastChild.appendChild(new_bm) ;
