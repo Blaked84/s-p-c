@@ -35,6 +35,9 @@ v:beta1
 		</tr>
 		
 	</table>
+	<div id='classement'>
+	test
+	</div>
 
 	<a class="edit btn" onclick="reset();"> Reset </a>
 </div>
@@ -68,17 +71,26 @@ v:beta1
 	lettres[17]='j';
 	lettres[18]='k';
 
+	//var listelettres={"a","z","e","r","t","y","u","o","p","q","s","d","f","g","h","j","k"};
+
+	for (var i = 1; i<19; i++){
+
+	}
+
 	var cnt = {};
+	var joueurs_equipe = {};
 	for (var i = 1; i <nombre_equipes; i++) {
-		cnt[i]=0;	
+		cnt[i]=0;
+		joueurs_equipe[i]=1;	
 	}
 	init_ui();
 	function init_ui(){
-		for (var i = 2; i < nombre_equipes; i++) {
+		for (var i = 2; i < nombre_equipes-1; i++) {
 			new_team(i);
 		};
+		
 	}
-	// génération de l'insterface
+	// génération de l'interface
 	function new_team(id){ 
 		// tr
 		var tr = document.createElement('tr');
@@ -138,7 +150,9 @@ v:beta1
 		span.appendChild(zero);
 		document.getElementById('liste').lastChild.lastChild.appendChild(span);
 	}
-	
+	// fin generation interface 
+
+
 	function p1(increment,i_){
 		//var a = increment;
 		cnt[i_] =parseInt( cnt[i_])+increment;
@@ -146,10 +160,34 @@ v:beta1
 		var f = 'i' + i_;
 		var g = 'n'+ i_;
 
-		var n1=document.getElementById(f).value;
-		var q_per_p = cnt[i_] /  n1;
+		joueurs_equipe[i_] =document.getElementById(f).value;
+		var q_per_p = Math.round( cnt[i_] /  joueurs_equipe[i_]*100)/100;
 		document.getElementById(c).innerHTML=cnt[i_];
 		document.getElementById(g).innerHTML=q_per_p;
+
+		// classement
+		//var classement
+		//var premier= Math.max(cnt);
+	
+		
+		var equip_maxi = "";
+		var cnt_temp = cnt;
+		//for (var j = nombre_equipes; j >= 1; j--) {
+			var maxi = 0;
+			var i_max;
+			for (var i = nombre_equipes; i >= 1; i--) {
+				if (cnt_temp[i]>maxi) {
+					maxi=cnt_temp[i];
+					equip_maxi =  "Equipe " + lettres[i] +" " + maxi;
+					i_max=i;
+
+				}
+		//	cnt_temp[i_max]=0;
+			
+		//	}
+
+		}
+		document.getElementById('classement').innerHTML=equip_maxi ;
 		
 		saveData();
 		return cnt[i_];
@@ -157,12 +195,29 @@ v:beta1
 	}
 
 
+	function classement(liste){
+		for (var i = nombre_equipes; i >= 1; i--) {
+
+			if (liste[i]>maxi) {
+						maxi=liste[i];
+						i_max=i;
+
+			}
+		}
+
+		return maxi;
+	}
+
 	function reset(){
-	for(var i=1; i<window.localStorage.length+1;i++)
+	for(var i=1; i<window.localStorage.length;i++)
 		{
-		window.localStorage.setItem(i, 0);
+		var vari = 'i'+i;
 		var vare = 'e'+i;
+
+		window.localStorage.setItem(i, 0);
+		window.localStorage.setItem(vari, 1);
 		document.getElementById(vare).innerHTML ="0";
+		document.getElementById(vari).innerHTML ="1";
 		
 
 		}

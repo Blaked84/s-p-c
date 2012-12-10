@@ -9,7 +9,9 @@ function getData(){
 			var key = window.localStorage.key(i);
 			var value = window.localStorage.getItem(key);
                                     displayData(value);
+
 		}
+		
 	}
 }
  
@@ -17,15 +19,15 @@ function saveData(){
 	for(var i=1; i<nombre_equipes+1;i++)
 		{
 		
-		var vare = 'e'+i;
 		var varee ={};
 
 		
-		//varee[i] = document.getElementById(vare).innerHTML;
 		
 		window.localStorage.setItem(i,cnt[i]);
+		window.localStorage.setItem(i+nombre_equipes,joueurs_equipe[i]);
 
 		}
+	
 
 
 
@@ -37,19 +39,34 @@ function saveData(){
 }
  
 function displayData(data){
-	for(var i=1; i<window.localStorage.length+1;i++)
+	for(var i=1; i<window.localStorage.length+1;i++)  //window.localStorage.length
 		{
-		
 		var vare = 'e'+i;
+		var vari = 'i'+i;
+
 		var varee ={};
 
-		
 
 		cnt[i]=window.localStorage.getItem(i);
 		document.getElementById(vare).innerHTML =cnt[i];
 		if (cnt[i] != null){vare = parseInt(cnt[i]);}
 		else{cnt[i]=0;}
+
+
+		
+		joueurs_equipe[i]=window.localStorage.getItem(i+nombre_equipes);
+		document.getElementById(vari).value =joueurs_equipe[i];
 		}
+
+			
+		/*setTimeout(function() {
+  		if (i=3) {alert(keyi); };
+  		},5000);
+		*/
+
+		setTimeout(function() {
+  		if (i=3) {alert(joueurs_equipe[i]); };
+  		},5000);
 
 	//ee2=window.localStorage.getItem(2);
 	//document.getElementById("e2").innerHTML =ee2;
