@@ -47,7 +47,7 @@ function displayData(data){
 		var varee ={};
 
 
-		cnt[i]=window.localStorage.getItem(i);
+		cnt[i]=parseInt(window.localStorage.getItem(i));
 		document.getElementById(vare).innerHTML =cnt[i];
 		if (cnt[i] != null){vare = parseInt(cnt[i]);}
 		else{cnt[i]=0;}
@@ -62,11 +62,11 @@ function displayData(data){
 		/*setTimeout(function() {
   		if (i=3) {alert(keyi); };
   		},5000);
-		*/
+		
 
 		setTimeout(function() {
   		if (i=3) {alert(joueurs_equipe[i]); };
-  		},5000);
+  		},5000);*/
 
 	//ee2=window.localStorage.getItem(2);
 	//document.getElementById("e2").innerHTML =ee2;

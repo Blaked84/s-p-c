@@ -25,14 +25,7 @@ v:beta1
 
 <div class="cnt">
 	<table id="liste">
-		<tr>
-			<td><a class="add btn" onclick='cnt[1]=p1(1,1);' href='#'> + </a></td>
-			<td><a class="light btn" onclick='cnt[1]=p1(-1,1)' href='#;'> - </a></td>
-			<td>Equipe a</td>
-			<td> <input type="text" id="i1" value="1"> </td>
-			<td><span id="e1" class="re">0</span></td>
-			<td><span id="n1" class="rn">0</span></td>
-		</tr>
+		
 		
 	</table>
 	<div id='classement'>
@@ -71,10 +64,13 @@ v:beta1
 	lettres[17]='j';
 	lettres[18]='k';
 
+
 	//var listelettres={"a","z","e","r","t","y","u","o","p","q","s","d","f","g","h","j","k"};
 
-	for (var i = 1; i<19; i++){
+	var base={};
 
+	for (var i = 1; i<19; i++){
+		base[i]=i;
 	}
 
 	var cnt = {};
@@ -83,10 +79,11 @@ v:beta1
 		cnt[i]=0;
 		joueurs_equipe[i]=1;	
 	}
-	init_ui();
-	function init_ui(){
-		for (var i = 2; i < nombre_equipes-1; i++) {
-			new_team(i);
+	init_ui(base);
+	function init_ui(liste){
+		for (var i = 1; i < nombre_equipes-1; i++) {
+			var k = liste[i];
+			new_team(k);
 		};
 		
 	}
@@ -131,24 +128,24 @@ v:beta1
 		document.getElementById(tr.id ).lastChild.appendChild(new_in) ;
 		//td
 		new_td();
-		new_span('e'+id,"re");
+		new_div('e'+id,"re");
 		//td
 		new_td();
-		new_span('n'+id,"rn");
+		new_div('n'+id,"rn");
 
 	}
 	function new_td(){
 		var td = document.createElement('td');
 		document.getElementById('liste').lastChild.appendChild(td);
 	}
-	function new_span(id,cla){
-		var span = document.createElement('span');
+	function new_div(id,cla){
+		var div = document.createElement('div');
 		var zero = document.createTextNode('0');
 
-		span.id=id;
-		span.className=cla;
-		span.appendChild(zero);
-		document.getElementById('liste').lastChild.lastChild.appendChild(span);
+		div.id=id;
+		div.className=cla;
+		div.appendChild(zero);
+		document.getElementById('liste').lastChild.lastChild.appendChild(div);
 	}
 	// fin generation interface 
 
@@ -170,42 +167,72 @@ v:beta1
 		//var premier= Math.max(cnt);
 	
 		
-		var equip_maxi = "";
-		var cnt_temp = cnt;
-		//for (var j = nombre_equipes; j >= 1; j--) {
-			var maxi = 0;
-			var i_max;
-			for (var i = nombre_equipes; i >= 1; i--) {
-				if (cnt_temp[i]>maxi) {
-					maxi=cnt_temp[i];
-					equip_maxi =  "Equipe " + lettres[i] +" " + maxi;
-					i_max=i;
+		var max =0;
 
+		// tracé du graph
+		for (var i = nombre_equipes; i >= 1; i--) {
+				if (cnt[i]>max) {
+					max=cnt[i];
+					
 				}
-		//	cnt_temp[i_max]=0;
-			
-		//	}
+
 
 		}
-		document.getElementById('classement').innerHTML=equip_maxi ;
+		//var nouvel_ordre=classement(cnt);
+		//reset_ui();
+		//init_ui(base);
+
+		for (t=1; t<nombre_equipes-1; t++){
+			var c = 'e'+t
+			graph(c,cnt[t],max);
+		}
+		
+		//document.getElementById('classement').innerHTML=equip_maxi ;
+		
+		
+		//alert(maxi);
+		
 		
 		saveData();
+		
 		return cnt[i_];
 
 	}
-
+	function graph(div,cnt,cntmax){
+		var largeur = cnt/cntmax *300 + 20;
+		document.getElementById(div).style.width= largeur + 'px';
+	}
+	function reset_ui(){
+		document.getElementById("liste").innerHTML="";
+	}
 
 	function classement(liste){
-		for (var i = nombre_equipes; i >= 1; i--) {
+		var maxi=0;
+		var cnt_temp=liste;
+		var i_max = 0;
+		var cnt_ordon ={};
+		var n_cnt_ordon = {};
+		for (var j = 1; j <nombre_equipes; j++) {
+			for (var i = 1; i <nombre_equipes; i++) {
 
-			if (liste[i]>maxi) {
-						maxi=liste[i];
-						i_max=i;
+				if (cnt_temp[i]>maxi) {
+							maxi=cnt_temp[i];
+							i_max=i;
+							
+				}
 
 			}
+			cnt_temp[i_max]=0;
+
+			maxi=0;
+			n_cnt_ordon[j]= i_max;
+
+			
 		}
 
-		return maxi;
+
+		
+		return n_cnt_ordon;
 	}
 
 	function reset(){
