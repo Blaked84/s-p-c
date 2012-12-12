@@ -125,9 +125,13 @@ v:beta1
 		document.getElementById(tr.id ).lastChild.appendChild(new_bm) ;
 		//td
 		new_td();
+		// lettre équipe
+		new_span_lettre(lettres[id]);
+		//td
+		new_td();
 		// nom equipe
-		var nom_equipe = document.createTextNode('Equipe ' + lettres[id]);
-		document.getElementById(tr.id ).lastChild.appendChild(nom_equipe) ;
+		var equipe = document.createTextNode(nom_equipe[id]);
+		document.getElementById(tr.id ).lastChild.appendChild(equipe) ;
 		//td
 		new_td();
 		// input
@@ -156,6 +160,14 @@ v:beta1
 		div.className=cla;
 		div.appendChild(zero);
 		document.getElementById('liste').lastChild.lastChild.appendChild(div);
+	}
+
+	function new_span_lettre(lettre_de_l_equipe){
+		var span = document.createElement('span');
+		var l = document.createTextNode(lettre_de_l_equipe);
+		span.className="lettres";
+		span.appendChild(l);
+		document.getElementById('liste').lastChild.lastChild.appendChild(span);
 	}
 	// fin generation interface 
 
