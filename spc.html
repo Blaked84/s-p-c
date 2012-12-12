@@ -271,31 +271,40 @@ v:beta1
 
 	function reset(){
 	
-	for(var i=1; i<=nombre_equipes;i++){
-		//var vari = 'i'+i;
-		//var vare = 'e'+i;
+
+	var answer = confirm("Effacer tout?")
+	if (answer){
+		for(var i=1; i<=nombre_equipes;i++){
+			//var vari = 'i'+i;
+			//var vare = 'e'+i;
 
 
-		window.localStorage.removeItem(i);
-		window.localStorage.setItem(i, 0);
-		//window.localStorage.setItem(vari, 1);
+			window.localStorage.removeItem(i);
+			window.localStorage.setItem(i, 0);
+			//window.localStorage.setItem(vari, 1);
 
+			}
+			for(var i=nombre_equipes+1; i<=nombre_equipes*2;i++){
+			//var vari = 'i'+i;
+			//var vare = 'e'+i;
+
+
+			window.localStorage.removeItem(i);
+			window.localStorage.setItem(i, 1);
+			//window.localStorage.setItem(vari, 1);
+
+			}
+			onload();
+			init_ui(base);
+		}
+	else{
+		alert("OUf! il etait moins une...")
 	}
-	for(var i=nombre_equipes+1; i<=nombre_equipes*2;i++){
-		//var vari = 'i'+i;
-		//var vare = 'e'+i;
 
-
-		window.localStorage.removeItem(i);
-		window.localStorage.setItem(i, 1);
-		//window.localStorage.setItem(vari, 1);
-
-	}
-	onload();
-	init_ui(base);
 	
 	
-	alert('clique sur ok et puis F5');
+	
+	
 	}
 
 
