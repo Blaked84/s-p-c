@@ -24,12 +24,7 @@ v:beta1
 
 
 <div class="cnt">
-	<table id="liste">
-		
-		
-	</table>
-	
-
+	<table id="liste"></table>
 	<a class="edit btn" onclick="reset();"> Reset </a>
 </div>
 <br />
@@ -38,66 +33,110 @@ v:beta1
 
 
 <script type="text/javascript">
-	//var nj = prompt("Nombre de joueurs");
-	//tableau des lettres
-
+	//////Déclaration des variables //////////
 	var lettres= {};
-
-	lettres[1]='a';
-	lettres[2]='z';
-	lettres[3]='e';
-	lettres[4]='r';
-	lettres[5]='t';
-	lettres[6]='y';
-	lettres[7]='u';
-	lettres[8]='i';
-	lettres[9]='o';
-	lettres[10]='p';
-	lettres[11]='q';
-	lettres[12]='s';
-	lettres[13]='d';
-	lettres[14]='f';
-	lettres[15]='g';
-	lettres[16]='h';
-	lettres[17]='j';
-	lettres[18]='k';
-
-
-	//var listelettres={"a","z","e","r","t","y","u","o","p","q","s","d","f","g","h","j","k"};
-
+	var lettres=["","a","z","e","r","t","y","u","o","p","q","s","d","f","g","h","j","k"];
 	var base={};
+	var cnt = {}; // liste des points
+	var max =-1;
+	var joueurs_equipe = {}; 
+	////// Fin déclaration des variables /////
 
-	for (var i = 1; i<19; i++){
+	for (var i = 1; i<=nombre_equipes; i++){
 		base[i]=i;
 	}
 
-	var cnt = {};
-	var joueurs_equipe = {};
-	for (var i = 1; i <nombre_equipes; i++) {
+	for (var i = 1; i <=nombre_equipes; i++) {
 		cnt[i]=0;
 		joueurs_equipe[i]=1;	
 	}
+
+
 	init_ui(base);
+
+
+	//génération de l'interface
 	function init_ui(liste){
-		for (var i = 1; i < nombre_equipes-1; i++) {
+		for (var i = 1; i <= nombre_equipes ; i++) {
 			var k = liste[i];
-			
+			var c ='e'+k;
+			var g = 'n'+ k;
 			new_team(k);
+			var q_per_p = Math.round( cnt[k] /  joueurs_equipe[k]*100)/100;
+			document.getElementById(c).innerHTML=cnt[k];
+			document.getElementById(g).innerHTML=q_per_p;
+
+		};
+		// tracé du graph
+		for (var p = nombre_equipes; p >= 1; p--) {
+			if (cnt[p]>max) {max=cnt[p];}
+		}
+		for (t=1; t<=nombre_equipes; t++){
+			var c = 'e'+t
+			graph(c,cnt[t],max);
+		}
+
+	}
+
+	function draw_ui(liste){
+		var k = liste[i];
+		var c ='e'+k;
+		var g = 'n'+ k;
+
+		titre_tab();
+		for (var i = 1; i <= nombre_equipes ; i++) {
+			
+
+
+		}
+		
+		reset_ui();
+		for (var i = 1; i <= nombre_equipes ; i++) {
+			
+			var k = liste[i];
+			new_team(k);
+			
 
 			var c ='e'+k;
 			var f = 'i' + k;
 			var g = 'n'+ k;
-
-			joueurs_equipe[i] =document.getElementById(f).value;
+			
 			var q_per_p = Math.round( cnt[k] /  joueurs_equipe[k]*100)/100;
 			document.getElementById(c).innerHTML=cnt[k];
 			document.getElementById(g).innerHTML=q_per_p;
 
 
 		};
+
+
+		// tracé du graph
+		for (var p = nombre_equipes; p >= 1; p--) {
+			if (cnt[p]>max) {max=cnt[p];}
+		}
+		for (t=1; t<=nombre_equipes; t++){
+			var c = 'e'+t
+			graph(c,cnt[t],max);
+		}
 		
 	}
-	// génération de l'interface
+	
+	function titre_tab(){
+		// tr
+		var tr = document.createElement('tr');
+		document.getElementById('liste').appendChild(tr);
+		new_td();
+		new_td();
+		new_td();
+		new_td();
+			new_div_t('','Equipe');
+		new_td();
+			new_div_t('', 'Nbre joueurs');
+		new_td();
+			new_div_t('','Points');
+		new_td();
+			new_div_t('', 'Points/joueurs');
+		
+	}
 	function new_team(id){ 
 		// tr
 		var tr = document.createElement('tr');
@@ -138,7 +177,7 @@ v:beta1
 		var new_in = document.createElement('input');
 		new_in.type="text";
 		new_in.id='i'+id;
-		new_in.value="1";
+		new_in.value=joueurs_equipe[id];
 		document.getElementById(tr.id ).lastChild.appendChild(new_in) ;
 		//td
 		new_td();
@@ -161,7 +200,14 @@ v:beta1
 		div.appendChild(zero);
 		document.getElementById('liste').lastChild.lastChild.appendChild(div);
 	}
+	function new_div_t(cla,divcontent){
+		var div = document.createElement('div');
+		var content = document.createTextNode(divcontent);
 
+		div.className=cla;
+		div.appendChild(content);
+		document.getElementById('liste').lastChild.lastChild.appendChild(div);
+	}
 	function new_span_lettre(lettre_de_l_equipe){
 		var span = document.createElement('span');
 		var l = document.createTextNode(lettre_de_l_equipe);
@@ -173,57 +219,23 @@ v:beta1
 
 
 	function p1(increment,i_){
-		
-
-
-		//var a = increment;
 		cnt[i_] =parseInt( cnt[i_])+increment;
-
 		//regenartion de l'ui
-		var nouvel_ordre=classement(cnt);
 		
-		//alert("test");
-		reset_ui();
-		init_ui(nouvel_ordre);
-		
-
-
-		
-		// classement
-		//var classement
-		//var premier= Math.max(cnt);
-	
-		
-		var max =-1;
-
-		// tracé du graph
-		for (var p = nombre_equipes; p >= 1; p--) {
-				if (cnt[p]>max) {
-					max=cnt[p];
-					
-				}
-
-
+		for (var h=1; h<=nombre_equipes;h++){
+			var f = 'i' + h;
+			joueurs_equipe[h] =document.getElementById(f).value;
 		}
-		//var nouvel_ordre=classement(cnt);
-		
-
-		for (t=1; t<nombre_equipes-1; t++){
-			var c = 'e'+t
-			graph(c,cnt[t],max);
-		}
-		
-		//document.getElementById('classement').innerHTML=equip_maxi ;
-		
-		
-		//alert(maxi);
-		
-		
 		saveData();
+		var nouvel_ordre=classement(cnt);
+		reset_ui();
+		draw_ui(nouvel_ordre);
+		//document.getElementById(f).value=joueurs_equipe[i_];
+				
 		
 		return cnt[i_];
-
 	}
+
 	function graph(div,cnt,cntmax){
 		var largeur = cnt/cntmax *300 + 20;
 		document.getElementById(div).style.width= largeur + 'px';
@@ -234,95 +246,73 @@ v:beta1
 
 	function classement(liste){
 		var maxi=0;
-		
 		var cnt_temp= {};
-		
-		for (var i=1 ; i<nombre_equipes-1;i++){
-			cnt_temp[i]=liste[i];
-		}
 		var i_max = 0;
 		var cnt_ordon ={};
 		var n_cnt_ordon = {};
-		for (var j = 1; j <nombre_equipes-1; j++) {
-			for (var i = 1; i <nombre_equipes-1; i++) {
-
+		
+		for (var i=1 ; i<=nombre_equipes;i++){
+			cnt_temp[i]=liste[i];
+		}
+		
+		for (var j = 1; j <=nombre_equipes; j++) {
+			for (var i = 1; i <=nombre_equipes; i++) {
 				if (cnt_temp[i]>=maxi) {
 							maxi=cnt_temp[i];
-							i_max=i;
-							
+							i_max=i;	
 				}
-
 			}
 			cnt_temp[i_max]=-1;
-
 			maxi=-1;
-			n_cnt_ordon[j]= i_max;
-
-			
-		}
-
-
-		
+			n_cnt_ordon[j]= i_max;	
+		}	
 		return n_cnt_ordon;
 	}
 
 	function reset(){
-	for(var i=1; i<window.localStorage.length;i++)
-		{
-		var vari = 'i'+i;
-		var vare = 'e'+i;
+	
+	for(var i=1; i<=nombre_equipes;i++){
+		//var vari = 'i'+i;
+		//var vare = 'e'+i;
 
+
+		window.localStorage.removeItem(i);
 		window.localStorage.setItem(i, 0);
-		window.localStorage.setItem(vari, 1);
-		document.getElementById(vare).innerHTML ="0";
-		document.getElementById(vari).innerHTML ="1";
-		
+		//window.localStorage.setItem(vari, 1);
 
-		}
-	var e1 =0;
-	var e2 =0;
-	var e3 =0;
+	}
+	for(var i=nombre_equipes+1; i<=nombre_equipes*2;i++){
+		//var vari = 'i'+i;
+		//var vare = 'e'+i;
+
+
+		window.localStorage.removeItem(i);
+		window.localStorage.setItem(i, 1);
+		//window.localStorage.setItem(vari, 1);
+
+	}
+	onload();
+	init_ui(base);
+	
 	
 	alert('clique sur ok et puis F5');
-	
-	//document.getElementById("e2").innerHTML ="0";
-	//document.getElementById("e3").innerHTML ="0";
 	}
 
 
 
 	// gestion clavier
+	function boutona(e){
+		var touche = (window.Event) ? e.which : e.keyCode;
+		for(var ib=1; ib<26; ib++){
+			if (String.fromCharCode(touche)==lettres[ib])
+				{
+					javascript:cnt[ib]=p1(1,ib);
+				}
 
-
-	function r2(equip){
-		equip +=1;
-		idelem = '"'+equip+"'";
-		document.getElementById("e2").innerHTML=equip;
-		//alert(a);
-		//alert('coucou');
-		a="equip";
-		
-		return equip;
-
+		}
+		saveData();
 	}
-</script>
-
-<script>
-
-
-
-function boutona(e){
-	var touche = (window.Event) ? e.which : e.keyCode;
-	for(var ib=1; ib<26; ib++){
-		if (String.fromCharCode(touche)==lettres[ib])
-			{
-				javascript:cnt[ib]=p1(1,ib);
-			}
-
-	}
-	saveData();
-}
-document.boutona;
+	document.boutona;
 </script>
 </body>
 </html>
