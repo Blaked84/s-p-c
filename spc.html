@@ -28,9 +28,7 @@ v:beta1
 		
 		
 	</table>
-	<div id='classement'>
-	test
-	</div>
+	
 
 	<a class="edit btn" onclick="reset();"> Reset </a>
 </div>
@@ -83,7 +81,19 @@ v:beta1
 	function init_ui(liste){
 		for (var i = 1; i < nombre_equipes-1; i++) {
 			var k = liste[i];
+			
 			new_team(k);
+
+			var c ='e'+k;
+			var f = 'i' + k;
+			var g = 'n'+ k;
+
+			joueurs_equipe[i] =document.getElementById(f).value;
+			var q_per_p = Math.round( cnt[k] /  joueurs_equipe[k]*100)/100;
+			document.getElementById(c).innerHTML=cnt[k];
+			document.getElementById(g).innerHTML=q_per_p;
+
+
 		};
 		
 	}
@@ -151,36 +161,40 @@ v:beta1
 
 
 	function p1(increment,i_){
+		
+
+
 		//var a = increment;
 		cnt[i_] =parseInt( cnt[i_])+increment;
-		var c ='e'+i_;
-		var f = 'i' + i_;
-		var g = 'n'+ i_;
 
-		joueurs_equipe[i_] =document.getElementById(f).value;
-		var q_per_p = Math.round( cnt[i_] /  joueurs_equipe[i_]*100)/100;
-		document.getElementById(c).innerHTML=cnt[i_];
-		document.getElementById(g).innerHTML=q_per_p;
+		//regenartion de l'ui
+		var nouvel_ordre=classement(cnt);
+		
+		//alert("test");
+		reset_ui();
+		init_ui(nouvel_ordre);
+		
 
+
+		
 		// classement
 		//var classement
 		//var premier= Math.max(cnt);
 	
 		
-		var max =0;
+		var max =-1;
 
 		// tracé du graph
-		for (var i = nombre_equipes; i >= 1; i--) {
-				if (cnt[i]>max) {
-					max=cnt[i];
+		for (var p = nombre_equipes; p >= 1; p--) {
+				if (cnt[p]>max) {
+					max=cnt[p];
 					
 				}
 
 
 		}
 		//var nouvel_ordre=classement(cnt);
-		//reset_ui();
-		//init_ui(base);
+		
 
 		for (t=1; t<nombre_equipes-1; t++){
 			var c = 'e'+t
@@ -208,23 +222,28 @@ v:beta1
 
 	function classement(liste){
 		var maxi=0;
-		var cnt_temp=liste;
+		
+		var cnt_temp= {};
+		
+		for (var i=1 ; i<nombre_equipes-1;i++){
+			cnt_temp[i]=liste[i];
+		}
 		var i_max = 0;
 		var cnt_ordon ={};
 		var n_cnt_ordon = {};
-		for (var j = 1; j <nombre_equipes; j++) {
-			for (var i = 1; i <nombre_equipes; i++) {
+		for (var j = 1; j <nombre_equipes-1; j++) {
+			for (var i = 1; i <nombre_equipes-1; i++) {
 
-				if (cnt_temp[i]>maxi) {
+				if (cnt_temp[i]>=maxi) {
 							maxi=cnt_temp[i];
 							i_max=i;
 							
 				}
 
 			}
-			cnt_temp[i_max]=0;
+			cnt_temp[i_max]=-1;
 
-			maxi=0;
+			maxi=-1;
 			n_cnt_ordon[j]= i_max;
 
 			
